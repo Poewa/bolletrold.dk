@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolletrold.dk - Vi elsker boller!</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Få stillet din bollelyst her!</h1>
+        <div class="image-container">
+            <img src="bolletrold.png" alt="Glad bolletrold der spiser boller" class="troll-img">
+        </div>
+        <div class="content">
+            <p class="intro">Kom indenfor, så skal jeg vise dig min kagerulle.</p>
+            <p class="punchline">"Pas på du ikke får glasur i øjet."</p>
+            <p class="sub-text">Det er ikke kun dejen, der hæver herinde. ( ͡° ͜ʖ ͡°)</p>
+        </div>
+        <div class="status-badge">Garanteret snasket</div>
+    </div>
+    <script>
+        const subtexts = [
+            "Det er ikke kun dejen, der hæver herinde. ( ͡° ͜ʖ ͡°)",
+            "Hvis den er våd og varm, så stikker jeg tungen i den! ( ͡° ͜ʖ ͡°)",
+            "Er du til store flutes eller små rosiner? ( ͡° ͜ʖ ͡°)"
+        ];
+        const subtextElement = document.querySelector('.sub-text');
+        let index = 0;
+
+        setInterval(() => {
+            subtextElement.style.opacity = 0;
+            setTimeout(() => {
+                index = (index + 1) % subtexts.length;
+                subtextElement.textContent = subtexts[index];
+                subtextElement.style.opacity = 1;
+            }, 500);
+        }, 5000);
+    </script>
+    </div>
+</body>
+
+</html>
