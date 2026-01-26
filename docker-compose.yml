@@ -40,3 +40,11 @@ services:
       - "traefik.http.routers.website.rule=Host(`bolletrold.dk`) || Host(`www.bolletrold.dk`)"
       - "traefik.http.routers.website.entrypoints=websecure"
       - "traefik.http.routers.website.tls.certresolver=myresolver"
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 3600 --cleanup
