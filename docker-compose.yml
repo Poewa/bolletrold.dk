@@ -35,8 +35,6 @@ services:
     image: ghcr.io/poewa/bolletrold.dk:latest
     container_name: website
     restart: unless-stopped
-    # volumes:
-    #   - ./www:/usr/share/nginx/html:ro
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.website.rule=Host(`bolletrold.dk`) || Host(`www.bolletrold.dk`)"
