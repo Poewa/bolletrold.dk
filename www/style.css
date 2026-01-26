@@ -122,3 +122,33 @@ h1 {
     font-size: 1.1rem;
     margin: 0.5rem 0;
 }
+
+.gallery-container {
+    max-width: 800px;
+    /* Wider for gallery */
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.gallery-item img {
+    width: 100%;
+    border-radius: 12px;
+    border: 3px solid #eee;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.05);
+}
+
+.gallery-item p {
+    font-style: italic;
+    color: #e67e22;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
