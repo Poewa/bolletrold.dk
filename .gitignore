@@ -1,5 +1,4 @@
 .env
-letsencrypt/
 .DS_Store
 
 # Snyk Security Extension - AI Rules (auto-generated)

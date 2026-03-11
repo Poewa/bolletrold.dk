@@ -1,52 +1,22 @@
 services:
-  traefik:
-    image: traefik:latest
-    container_name: traefik
-    restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
-    ports:
-      - "80:80"
-      - "443:443"
-    env_file: .env
-    environment:
-      # These remain as they help Traefik talk to the host socket correctly
-      - DOCKER_HOST=unix:///var/run/docker.sock
-      - DOCKER_API_VERSION=1.45
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./letsencrypt:/letsencrypt
-    command:
-      - "--log.level=INFO"
-      - "--api.dashboard=true"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--certificatesresolvers.myresolver.acme.dnschallenge=true"
-      - "--certificatesresolvers.myresolver.acme.dnschallenge.provider=cloudflare"
-      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-
   website:
     image: ghcr.io/poewa/bolletrold.dk:latest
     container_name: website
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.website.rule=Host(`bolletrold.dk`) || Host(`www.bolletrold.dk`)"
-      - "traefik.http.routers.website.entrypoints=websecure"
-      - "traefik.http.routers.website.tls.certresolver=myresolver"
+      - "traefik.http.routers.bolle.rule=Host(`bolletrold.dk`) || Host(`www.bolletrold.dk`)"
+      - "traefik.http.routers.bolle.entrypoints=websecure"
+      - "traefik.http.routers.bolle.tls.certresolver=cloudflare"
+      # This line forces a wildcard cert for the new domain
+      - "traefik.http.routers.bolle.tls.domains[0].main=bolletrold.dk"
+      - "traefik.http.routers.bolle.tls.domains[0].sans=*.bolletrold.dk"
+      # Explicitly tell Traefik to use the HTTP scheme
+      - "traefik.http.services.bolle.loadbalancer.server.port=80"
+      - "traefik.http.services.bolle.loadbalancer.server.scheme=http"
+    networks:
+      - proxy
 
-  watchtower:
-    image: containrrr/watchtower
-    container_name: watchtower
-    restart: unless-stopped
-    environment:
-      - DOCKER_API_VERSION=1.45
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 3600 --cleanup
+networks:
+  proxy:
+    external: true
