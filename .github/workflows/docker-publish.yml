@@ -46,12 +46,8 @@ jobs:
           context: .
           push: true
           # Forces Docker to check for a newer Nginx:alpine base image
-          pull: true 
+          pull: true
+          # Force a completely fresh build every time (no caching)
+          no-cache: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          # Bust cache for COPY layer on every build
-          build-args: |
-            CACHEBUST=${{ github.sha }}
-          # These two lines enable the GitHub Actions Cache
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
