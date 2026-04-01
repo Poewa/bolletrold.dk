@@ -296,6 +296,12 @@ h1 {
     .news-img:hover {
         transform: none;
     }
+
+    .easter-banner {
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+        padding: 0.5rem 0.75rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -317,6 +323,16 @@ h1 {
         height: auto;
         border-radius: 8px;
         display: block;
+    }
+
+    .easter-banner {
+        font-size: 0.8rem;
+        letter-spacing: 0;
+        padding: 0.4rem 0.5rem;
+    }
+
+    body.easter-theme {
+        padding-top: 3.5rem;
     }
 }
 
