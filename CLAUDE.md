@@ -19,7 +19,6 @@ The dev setup volume-mounts `www/` read-only into nginx:alpine, so file edits ar
 
 Push to `master` triggers a GitHub Actions workflow (`.github/workflows/docker-publish.yml`) that builds a Docker image and pushes to `ghcr.io/poewa/bolletrold.dk`. Production runs behind Traefik reverse proxy with Cloudflare SSL (configured via labels in `docker-compose.yml`).
 
-Cache busting: CSS and JS are loaded with `?v=N` query params in HTML files. Bump the version number when changing `style.css` or `easter-theme.js`.
 
 ## Architecture
 
